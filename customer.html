@@ -302,13 +302,33 @@
   margin-left: auto;
 }
 
+    .right-header{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      margin-left:auto;
+    }
+    .right-header .brand{ flex:none; }
+
   @media(max-width:860px){
     .hero-inner{ grid-template-columns:1fr; }
-    .hero-visual{ aspect-ratio:16/9; }
+      .hero-visual{ aspect-ratio:16/9; height:auto; }
     .modal-grid{ grid-template-columns:1fr; }
     .modal-media{ min-height:180px; }
     .query-panel{ grid-template-columns:1fr; padding:30px 24px; }
     .search-box{ display:none; }
+      .right-header{ gap:12px; }
+      .right-header .brand-text{ display:none; }
+    }
+
+    @media(max-width:560px){
+      .nav{ padding:10px 16px; gap:10px; }
+      .brand > img{ width:44px !important; height:44px !important; }
+      .brand-text .name{ font-size:16px; }
+      .brand-text .tag{ font-size:9px; letter-spacing:1.5px; }
+      .right-header{ gap:8px; }
+      .cart-btn{ padding:9px 12px; }
+      .cart-btn svg{ display:none; }
   }
 </style>
 </head>
@@ -405,7 +425,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://plain-apac-prod-public.komododecks.com/202608/08/oQT0YDDsXRjpZjY3n4NK/image.png" alt="Premium modern living room with furniture and smart television" class="hero-image" >
+      <img src="https://plain-apac-prod-public.komododecks.com/202608/08/oQT0YDDsXRjpZjY3n4NK/image.png" alt="Kaviya RO water purification system" class="hero-image" >
 
      
     </div>
@@ -739,8 +759,9 @@ function renderCatalog(){
         </div>
       </div>
     `;
-    card.querySelector('.card-media').addEventListener('click', () => openModal(p));
-    card.querySelector('h3').addEventListener('click', () => openModal(p));
+    card.addEventListener('click', (e) => {
+      if(!e.target.closest('.add-btn, .swatch')) openModal(p);
+    });
     card.querySelectorAll('.swatch').forEach(sw => {
       sw.addEventListener('click', (e) => {
         e.stopPropagation();
